@@ -1,6 +1,7 @@
 let fields = document.querySelectorAll('.field');
 let fieldsArr = Array.from(fields);
 let index,mark = 'X';
+let counter = 0;
 
 let game = ( () => {
     let gameBoard = [];
@@ -9,16 +10,30 @@ let game = ( () => {
     }
     let move = (() => {
         fields.forEach( (i) => {
-            i.addEventListener('click', ()=>{
-                console.log(i.getAttribute('data-position'));
+            i.addEventListener('click', () => {
                 index = i.getAttribute('data-position');
-                gameBoard[index-1] = mark;
-                i.innerText = mark;
-                display();
+                // console.log(i.getAttribute('data-position'));
+                if(gameBoard[index-1] == 'X' || gameBoard[index-1] == 'O'){
+                    alert('cannot play there');
+                }
+                else{
+                    //counter ? (mark ='X'; counter =1) : (mark='O'; counter = 0);
+                    if(counter == 0){
+                        mark = 'X';
+                        counter =1;
+                    }else{
+                        mark = 'O';
+                        counter = 0;
+                    }
+                    gameBoard[index-1] = mark;
+                    i.innerText = mark;
+                    
+                    display();
+                }
             })
         })
     })();
-    return {move, display,gameBoard};
+    return {move, display, gameBoard};
 })();
 
 let displayController = ( ()=> {
