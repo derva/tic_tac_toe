@@ -3,7 +3,21 @@ let fieldsArr = Array.from(fields);
 let index,mark = 'X';
 let counter = 0;
 let restartButton = document.getElementById('restartButton');
+let id = Array.from(document.querySelectorAll('.field'));
+let nextMarker = document.getElementById('nextmarker');
+let nextPlayer = document.getElementById('nextplayer');
+let moves = 0;
 
+
+
+let Player = (name) =>{
+    let getName = () => name;
+    return {getName}
+}
+
+let player1 = Player(prompt('Enter name for player 1: '));
+let player2 = Player(prompt('Enter name for player 2: '));
+nextPlayer.innerText = player1.getName();
 
 let game = ( () => {
     let gameBoard = [];
@@ -23,13 +37,23 @@ let game = ( () => {
                     if(counter == 0){
                         mark = 'X';
                         counter =1;
+                        nextMarker.innerText='O';
+                        nextPlayer.innerText =player2.getName();
+                        moves++;
                     }else{
                         mark = 'O';
                         counter = 0;
+                        nextMarker.innerText='X';
+                        nextPlayer.innerText =player1.getName();
+                        moves++;
                     }
                     gameBoard[index-1] = mark;
                     i.innerText = mark;
-                    
+                    if(moves == 9){
+                        alert('tie, try again :)' );
+                        displayController.restart();
+                    }
+
                     // display();
                     displayController.checkWinner();
                     // displayController.checkColumns();
@@ -42,10 +66,18 @@ let game = ( () => {
 
 let displayController = ( ()=> {
     let restart = () => {
-        
+        for(i = 0; i < 9; i++){
+            game.gameBoard[i] = undefined;
+            id[i].innerText = '';
+            // console.log('i: ' + i);
+        }
+        mark = 'X';
+        counter = 0;
     }
-    let winner = (name) => {
-        alert('Player ' + name + ' win this game!');
+    let winner = (mark) => {
+        let win = (mark == 'X') ? player1.getName() : player2.getName();
+        alert('Player ' + win + ' win this game!');
+        restart();
     }
     let checkRows = () =>{
         if(game.gameBoard[0] === game.gameBoard[1] && game.gameBoard[1] === game.gameBoard[2]){
@@ -106,26 +138,23 @@ let displayController = ( ()=> {
         checkRows();
         checkColumns();
         checkDiagonals();
-        
+
     }
     return {checkWinner,restart};
 })();
 
-let Player = (name) =>{
-    let getName = () => name;
-    return {getName}
-}
 
-let id = Array.from(document.querySelectorAll('.field'));
 
-restartButton.addEventListener('click', () => {
-    for(i = 0; i < 9; i++){
-        
-        game.gameBoard[i] = undefined;
-        id[i].innerText = '';
-        // console.log('i: ' + i);
-    }
-});
+restartButton.addEventListener('click', displayController.restart);
+
+// restartButton.addEventListener('click', () => {
+//     for(i = 0; i < 9; i++){
+
+//         game.gameBoard[i] = undefined;
+//         id[i].innerText = '';
+//         // console.log('i: ' + i);
+//     }
+// });
 // fields.forEach( (i) => {
 //     i.addEventListener('click', ()=>{
 //         console.log('index: ' + i.getAttribute('data-position'));

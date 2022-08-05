@@ -4,7 +4,7 @@
     font-family: Roboto;
 }
 header{
-    background-color: #f43f5e;
+    background-color: #111827;
     padding: 15px;
     color: #fff;
     display: grid;
@@ -19,19 +19,20 @@ header > h1{
 }
 .headerButtons {
     color: #fff;
-    align-self: center;
+    justify-self: center;
 }
 .headerButtons > button{
     border-radius: 5px;
     margin: 0 5px;
     padding: 10px 15px;
-    background-color: #fb7185;
+    background-color: #e5e7eb;
     border: 0px;
-    color: #fff;
+    color: #000;
 }
 .headerButtons > button:hover{
     cursor: pointer;
-    background-color: #e11d48;
+    background-color: #9ca3af;
+    color: #fff;
     font-weight: bold;
 }
 
@@ -39,6 +40,16 @@ header > h1{
     margin: 15px;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
+}
+.info{
+    text-align: center;
+    padding:  5px;
+    margin: 15px 0px;
+    border-bottom: 1px solid black;
+}
+#nextplayer{
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 .box{
     display: grid;
